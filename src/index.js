@@ -11,15 +11,6 @@ addBtn.addEventListener("click", () => {
 });
 
 
-class Task {
-    constructor(title, details, dueDate, priority) {
-        title, 
-        details,
-        dueDate,
-        priority
-    }
-}
-
 // View All EL
 
 
