@@ -4,7 +4,7 @@ const allProjects = [];
 
 class Project {
     constructor(title, description) {
-        this.title = title,
+        this.title = title;
         this.description = description;
         this.tasks = [];
     }
@@ -17,6 +17,23 @@ class Project {
     getTasks() {
         return this.tasks;
     }
+
+    setTitle(title) {
+        this.title = title;
+    }
+
+    getTitle() {
+        return this.title;
+    }
+
+    getDescription() {
+        return this.description;
+    }
+
+    setDescription(description) {
+        this.description = description;
+    }
+
 }
 
 class Task {

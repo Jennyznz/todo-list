@@ -5,16 +5,89 @@ function projectView(project) {
 
     const projCol = document.getElementById('projects');
 
-    // Display project title
+    // Project Title
+    // Edit title button
+    const editTitleBtn = document.createElement('button');
+    editTitleBtn.textContent = 'Edit Title';
+    editTitleBtn.setAttribute('type', 'button');
+    projCol.append(editTitleBtn);
+
+    // Display title
     const header = document.createElement("h1");
     header.textContent = project.title;
     projCol.append(header);
 
-    // Display project description
+    // Edit title
+    editTitleBtn.addEventListener('click', () => {
+
+        // Create a text input pre-filled with current title 
+        const input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('id', 'changing-the-title');
+        input.setAttribute('value', project.getTitle());
+
+        header.replaceWith(input);
+        input.focus(); // Place cursor inside text field
+        
+        // Saves tile when user presses Enter or exits field
+        function saveTitle() {
+            project.setTitle(input.value);
+            header.textContent = input.value;
+            input.replaceWith(header);
+        }
+
+        input.addEventListener('blur', saveTitle); // User exits field
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                saveTitle();
+            }
+        });
+
+        project.setTitle(header.textContent);
+    });
+
+
+    // Project Description
+    // Edit description button
+    const editDesBtn = document.createElement('button');
+    editDesBtn.textContent = 'Edit Title';
+    editDesBtn.setAttribute('type', 'button');
+    projCol.append(editDesBtn);
+
+    // Display description
     const description = document.createElement("p");
     description.setAttribute("class", "description");
     description.textContent = project.description;
     projCol.append(description);
+
+    // Edit description
+    editDesBtn.addEventListener('click', () => {
+
+        // Create a text input pre-filled with current title 
+        const input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('id', 'changing-the-des');
+        input.setAttribute('value', project.getDescription());
+
+        description.replaceWith(input);
+        input.focus(); // Place cursor inside text field
+        
+        // Saves tile when user presses Enter or exits field
+        function saveDes() {
+            project.setDescription(input.value);
+            description.textContent = input.value;
+            input.replaceWith(description);
+        }
+
+        input.addEventListener('blur', saveDes); // User exits field
+        input.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                saveDes();
+            }
+        });
+
+    });
+
 
     const list = document.createElement('ul');
 
@@ -24,7 +97,7 @@ function projectView(project) {
     addTasksBtn.textContent = 'Add Task'
     projCol.append(addTasksBtn);
     addTasksBtn.addEventListener("click", () => {
-        
+
         // Create blank and unchecked task
         list.append(createItem('', false));
         project.createTask('', false);
@@ -59,7 +132,6 @@ function updateTasks(project) {
         });
     });
 }
-
 
 
 export { projectView };
