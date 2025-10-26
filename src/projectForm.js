@@ -13,6 +13,10 @@ class Project {
         const task = new Task(content, isComplete);
         this.tasks.push(task);
     }
+
+    getTasks() {
+        return this.tasks;
+    }
 }
 
 class Task {
@@ -58,7 +62,6 @@ function createProject() {
     });
 
     allProjects.push(newProj);
-    // console.log(newProj.tasks);
 
 }
 
@@ -85,11 +88,12 @@ function createForm() {
 
     // Add-tasks button
     const addTasksBtn = document.createElement("button");
-    addTasksBtn.setAttribute('id', 'add-tasks-btn')
-    addTasksBtn.textContent = 'Add Task'
+    addTasksBtn.setAttribute('id', 'add-tasks-btn');
+    addTasksBtn.setAttribute('type', 'button');
+    addTasksBtn.textContent = 'Add Task';
     form.append(addTasksBtn);
     addTasksBtn.addEventListener("click", () => {
-        list.append(createItem());
+        list.append(createItem('', false));
     });
 
     form.append(list);
