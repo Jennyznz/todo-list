@@ -9,18 +9,26 @@ class Project {
         this.tasks = [];
     }
 
-    createTask() {
-        const task = new Task();
+    createTask(content, isComplete) {
+        const task = new Task(content, isComplete);
         this.tasks.push(task);
     }
 }
 
 class Task {
-    constructor(content = "", isComplete = false) {
+    constructor(content, isComplete) {
         this.content = content;
         this.isComplete = isComplete;
 
         // TO ADD: due date
+    }
+
+    toggleIsComplete() {
+        this.isComplete = !this.isComplete;
+    }
+
+    setContent(newContent) {
+        this.content = newContent;
     }
 }
 
@@ -32,7 +40,26 @@ function createProject() {
     const description = form.description.value;
 
     const newProj = new Project(title, description);
+
+    const allTasks = document.querySelectorAll('.one-task');
+    allTasks.forEach(task => { 
+        const checkbox = task.querySelector('input[type="checkbox"]')
+        const isComplete = checkbox.checked;
+
+        const text = task.querySelector('input[type="text"]');
+        const content = text.value;
+
+        console.log("Task found:", content, "Checked:", isComplete);
+
+        // Ignore blank-space tasks
+        if (content.trim() !== '') {
+            newProj.createTask(content, isComplete);
+        }
+    });
+
     allProjects.push(newProj);
+    // console.log(newProj.tasks);
+
 }
 
 function createForm() {
@@ -52,14 +79,14 @@ function createForm() {
 
     // Tasks
     const list = document.createElement('ul');
-    list.append(createItem());
-    list.append(createItem());
-    list.append(createItem());
+    list.append(createItem("", false));
+    list.append(createItem("", false));
+    list.append(createItem("", false));
 
-    // Add Tasks Button
+    // Add-tasks button
     const addTasksBtn = document.createElement("button");
     addTasksBtn.setAttribute('id', 'add-tasks-btn')
-    addTasksBtn.textContent = 'Add More Tasks'
+    addTasksBtn.textContent = 'Add Task'
     form.append(addTasksBtn);
     addTasksBtn.addEventListener("click", () => {
         list.append(createItem());
@@ -81,29 +108,35 @@ function createForm() {
         e.preventDefault();
         createProject();
         clearForm();
+
         displayAll();
     });
 }
 
-function createItem() {
+function createItem(content, isChecked) {
     const item = document.createElement('li');
+    item.setAttribute('class', 'one-task');
 
     const label = document.createElement('label');
     label.setAttribute('for', 'task');
 
+    // Create task checkbox
     const input = document.createElement('input');
     input.setAttribute('type', 'checkbox');
     input.setAttribute('name', 'task-check');
+    input.checked = Boolean(isChecked);
 
+    // Create task textfield
     const input2 = document.createElement('input');
     input2.setAttribute('type', 'text');
     input2.setAttribute('name', 'task-text');
-
+    input2.value = content;
 
     label.append(input);
     label.append(input2);
     item.append(label);
     
+    console.log("Creating item:", content, isChecked); 
     return item;
 }
  
@@ -138,7 +171,6 @@ function createEntry(name, type, isRequired) {
         textarea.setAttribute('name', name);
         textarea.setAttribute('required', isRequired);
 
-
         entry.append(textarea);
     }
    
@@ -150,4 +182,4 @@ function clearForm() {
     projCol.textContent = "";
 }
 
-export { createForm, allProjects, clearForm }; 
+export { createForm, allProjects, clearForm, createItem }; 
