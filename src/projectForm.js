@@ -1,4 +1,4 @@
-import { displayAll } from "./all.js"
+import { displayAll } from "./all.js";
 
 const allProjects = [];
 

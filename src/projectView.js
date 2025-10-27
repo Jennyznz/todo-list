@@ -1,9 +1,19 @@
 
-import { createItem } from './projectForm.js'
+import { createItem, clearForm } from './projectForm.js';
+import { displayAll } from './all.js';
 
 function projectView(project) {
 
     const projCol = document.getElementById('projects');
+
+    const backBtn = document.createElement('button');
+    backBtn.setAttribute('type', 'button');
+    backBtn.textContent = 'Back';
+    projCol.append(backBtn);
+    backBtn.addEventListener('click', () => {
+        clearForm();
+        displayAll();
+    });
 
     // Project Title
     // Edit title button
