@@ -5,8 +5,6 @@ import { displayAll } from "./all.js";
 // Default is list of projects
 displayAll();
 
-
-
 // View All EL
 const all = document.getElementById("all-projects");
 all.addEventListener("click", () => {

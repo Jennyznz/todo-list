@@ -3,9 +3,10 @@ import { displayAll } from "./all.js";
 const allProjects = [];
 
 class Project {
-    constructor(title, description) {
+    constructor(title, description, isPriority) {
         this.title = title;
         this.description = description;
+        this.isPriority = isPriority;
         this.tasks = [];
     }
 
@@ -34,6 +35,14 @@ class Project {
         this.description = description;
     }
 
+    getIsPriority() {
+        return this.isPriority;
+    }
+
+    setIsPriority(bool) {
+        this.isPriority = bool;
+    }
+
 }
 
 class Task {
@@ -59,8 +68,9 @@ function createProject() {
     const form = document.getElementById('project-form');
     const title = form.title.value;
     const description = form.description.value;
+    const priority = form.priority.checked;
 
-    const newProj = new Project(title, description);
+    const newProj = new Project(title, description, priority);
 
     const allTasks = document.querySelectorAll('.one-task');
     allTasks.forEach(task => { 
@@ -85,17 +95,35 @@ function createProject() {
 function createForm() {
     const projCol = document.getElementById("projects");
 
+    // Back button
+    const backBtn = document.createElement('button');
+    backBtn.setAttribute('type', 'button');
+    backBtn.textContent = 'Back';
+    projCol.append(backBtn);
+    backBtn.addEventListener('click', () => {
+        clearForm();
+        displayAll();
+    });
+
     // Form element 
     const form = document.createElement("form");
-    // form.setAttribute("action", "submit");
     form.setAttribute('id', 'project-form');
 
     // Form content
     form.append(createEntry("title", "text", true));
     form.append(createEntry("description", "textarea", false));
     // TO ADD: Due Date
-    // TO ADD: isPriority
-    // TO ADD: isComplete
+
+    // High-priority feature
+    // Checkbox
+    const input = document.createElement('input');
+    input.setAttribute('name', 'priority');
+    input.setAttribute('type', 'checkbox');
+    form.append(input);
+    // Label
+    const input2 = document.createElement('span');
+    input2.textContent = "High Priority";
+    form.append(input2);
 
     // Tasks
     const list = document.createElement('ul');
@@ -124,7 +152,7 @@ function createForm() {
     // Render form
     projCol.append(form);
 
-    // Add submit btn event listener after the form exists
+    // Add submit button event listener after the form exists
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         createProject();

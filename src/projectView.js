@@ -115,6 +115,20 @@ function projectView(project) {
 
     });
 
+    // High-priority feature
+    // Checkbox
+    const input = document.createElement('input');
+    input.setAttribute('name', 'priority');
+    input.setAttribute('type', 'checkbox');
+    input.checked = project.getIsPriority();
+    projCol.append(input);
+    input.addEventListener('change', () => {
+        project.setIsPriority(!project.getIsPriority());
+    });
+    // Label
+    const input2 = document.createElement('span');
+    input2.textContent = "High Priority";
+    projCol.append(input2);
 
     const list = document.createElement('ul');
 
@@ -124,7 +138,6 @@ function projectView(project) {
     addTasksBtn.textContent = 'Add Task'
     projCol.append(addTasksBtn);
     addTasksBtn.addEventListener("click", () => {
-
         // Create blank and unchecked task
         list.append(createItem('', false));
         project.createTask('', false);
