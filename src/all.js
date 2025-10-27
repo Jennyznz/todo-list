@@ -1,4 +1,4 @@
-import { allProjects, clearForm} from "./projectForm.js";
+import { allProjects, clearForm, createForm } from "./projectForm.js";
 import { projectView } from "./projectView.js"
 
 function displayAll() {
@@ -7,6 +7,17 @@ function displayAll() {
     const header = document.createElement("h1");
     header.textContent = "All Projects";
     projCol.append(header);
+
+    // Add new project
+    const addBtn = document.createElement('button');
+    addBtn.setAttribute('id', 'add-btn');
+    addBtn.setAttribute('type', 'button');
+    addBtn.textContent = "New Project"
+    projCol.append(addBtn);
+    addBtn.addEventListener("click", () => {
+        clearForm(); 
+        createForm();
+    });
 
     // Display projects
     allProjects.forEach(project => {

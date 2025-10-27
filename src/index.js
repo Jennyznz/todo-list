@@ -2,14 +2,10 @@ import "./styles.css";
 import { createForm, clearForm } from "./projectForm.js";
 import { displayAll } from "./all.js";
 
-// Default is a project creation
-createForm();
+// Default is list of projects
+displayAll();
 
-const addBtn = document.getElementById("add-btn");
-addBtn.addEventListener("click", () => {
-    clearForm(); 
-    createForm();
-});
+
 
 // View All EL
 const all = document.getElementById("all-projects");
