@@ -105,6 +105,9 @@ function projectView(project) {
     });
     
     // Display project tasks
+    const taskHeader = document.createElement('h3');
+    taskHeader.textContent = 'Tasks';
+    projCol.append(taskHeader);
     project.tasks.forEach(task => {
         list.append(createItem(task.content, task.isComplete));
     });
