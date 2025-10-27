@@ -1,11 +1,12 @@
 
-import { createItem, clearForm } from './projectForm.js';
+import { allProjects, createItem, clearForm } from './projectForm.js';
 import { displayAll } from './all.js';
 
 function projectView(project) {
 
     const projCol = document.getElementById('projects');
 
+    // Back button
     const backBtn = document.createElement('button');
     backBtn.setAttribute('type', 'button');
     backBtn.textContent = 'Back';
@@ -14,6 +15,22 @@ function projectView(project) {
         clearForm();
         displayAll();
     });
+
+    // Delete project button
+    const delProj = document.createElement('button');
+    delProj.setAttribute('type', 'button');
+    delProj.textContent = 'X';
+    projCol.append(delProj);
+    delProj.addEventListener('click', () => {
+        const index = allProjects.indexOf(project);
+        if (index !== -1) {
+            allProjects.splice(index, 1); // .splice() removes 1 element starting from 'index'
+            // Redirects to list of all projects, if current project is deleted
+            clearForm();
+            displayAll();
+        }
+    });
+
 
     // Project Title
     // Edit title button
@@ -60,7 +77,7 @@ function projectView(project) {
     // Project Description
     // Edit description button
     const editDesBtn = document.createElement('button');
-    editDesBtn.textContent = 'Edit Title';
+    editDesBtn.textContent = 'Edit Description';
     editDesBtn.setAttribute('type', 'button');
     projCol.append(editDesBtn);
 
