@@ -138,9 +138,6 @@ function createItem(content, isChecked) {
     const item = document.createElement('li');
     item.setAttribute('class', 'one-task');
 
-    const label = document.createElement('label');
-    label.setAttribute('for', 'task');
-
     // Create task checkbox
     const input = document.createElement('input');
     input.setAttribute('type', 'checkbox');
@@ -153,11 +150,20 @@ function createItem(content, isChecked) {
     input2.setAttribute('name', 'task-text');
     input2.value = content;
 
-    label.append(input);
-    label.append(input2);
-    item.append(label);
+    item.append(input);
+    item.append(input2);
+
+    // Create delete button
+    const delBtn = document.createElement('button');
+    delBtn.setAttribute('class', 'del-btn');
+    delBtn.setAttribute('type', 'button');
+    delBtn.textContent = 'X';
+    item.append(delBtn);
+    delBtn.addEventListener('click', () => {
+        item.remove();
+    });
+
     
-    console.log("Creating item:", content, isChecked); 
     return item;
 }
  
