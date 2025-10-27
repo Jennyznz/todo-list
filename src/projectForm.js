@@ -3,10 +3,11 @@ import { displayAll } from "./all.js";
 const allProjects = [];
 
 class Project {
-    constructor(title, description, isPriority) {
+    constructor(title, description, isPriority, dueDate) {
         this.title = title;
         this.description = description;
         this.isPriority = isPriority;
+        this.dueDate = dueDate;
         this.tasks = [];
     }
 
@@ -43,14 +44,16 @@ class Project {
         this.isPriority = bool;
     }
 
+    getDueDate() {
+        return this.dueDate;
+    }
+
 }
 
 class Task {
     constructor(content, isComplete) {
         this.content = content;
         this.isComplete = isComplete;
-
-        // TO ADD: due date
     }
 
     toggleIsComplete() {
@@ -69,8 +72,9 @@ function createProject() {
     const title = form.title.value;
     const description = form.description.value;
     const priority = form.priority.checked;
+    const dueDate = form.dueDate.value;
 
-    const newProj = new Project(title, description, priority);
+    const newProj = new Project(title, description, priority, dueDate);
 
     const allTasks = document.querySelectorAll('.one-task');
     allTasks.forEach(task => { 
@@ -124,6 +128,22 @@ function createForm() {
     const input2 = document.createElement('span');
     input2.textContent = "High Priority";
     form.append(input2);
+
+    // Due Date
+    const dateContainer = document.createElement('div');
+    // Label
+    const dateLabel = document.createElement('label');
+    dateLabel.setAttribute('for', 'dueDate');
+    dateLabel.textContent = 'Due Date:';
+    dateContainer.append(dateLabel);
+    // Input
+    const dateInput = document.createElement('input');
+    dateInput.setAttribute('type', 'date');
+    dateInput.setAttribute('id', 'due-date');
+    dateInput.setAttribute('name', 'dueDate');
+    dateContainer.append(dateInput);
+
+    form.append(dateContainer);
 
     // Tasks
     const list = document.createElement('ul');

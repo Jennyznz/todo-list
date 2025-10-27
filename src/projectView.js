@@ -89,7 +89,6 @@ function projectView(project) {
 
     // Edit description
     editDesBtn.addEventListener('click', () => {
-
         // Create a text input pre-filled with current title 
         const input = document.createElement('input');
         input.setAttribute('type', 'text');
@@ -130,8 +129,18 @@ function projectView(project) {
     input2.textContent = "High Priority";
     projCol.append(input2);
 
-    const list = document.createElement('ul');
+    // Due date
+    const dateContainer = document.createElement('div');
+    // label
+    const dateLabel = document.createElement('span');
+    dateLabel.textContent = 'Due Date: ';
+    // input
+    const dueDate = project.getDueDate();
+    dateContainer.append(dateLabel, dueDate);
+    projCol.append(dateContainer);
 
+
+    const list = document.createElement('ul');
     // Create and display add-task button
     const addTasksBtn = document.createElement("button");
     addTasksBtn.setAttribute('id', 'add-tasks-btn')
