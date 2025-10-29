@@ -13,3 +13,10 @@
     background-color: antiquewhite;
     margin: 10px;
 }
+
+#add-btn {
+    background-image: url("../assets/plus.svg");
+    width: 20px;
+    height: 20px;
+    background-color: white;
+}

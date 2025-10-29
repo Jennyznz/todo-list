@@ -1,6 +1,7 @@
 
 import { allProjects, createItem, clearForm } from './projectForm.js';
 import { displayAll } from './all.js';
+import { updateSidebarList } from './index.js';
 
 function projectView(project) {
 
@@ -27,6 +28,7 @@ function projectView(project) {
             allProjects.splice(index, 1); // .splice() removes 1 element starting from 'index'
             // Redirects to list of all projects, if current project is deleted
             clearForm();
+            updateSidebarList();
             displayAll();
         }
     });
@@ -61,6 +63,7 @@ function projectView(project) {
             project.setTitle(input.value);
             header.textContent = input.value;
             input.replaceWith(header);
+            updateSidebarList();
         }
 
         input.addEventListener('blur', saveTitle); // User exits field
@@ -70,7 +73,7 @@ function projectView(project) {
             }
         });
 
-        project.setTitle(header.textContent);
+       // project.setTitle(header.textContent);
     });
 
 

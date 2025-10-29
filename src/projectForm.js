@@ -1,4 +1,5 @@
 import { displayAll } from "./all.js";
+import { updateSidebarList } from "./index.js";
 
 const allProjects = [];
 
@@ -116,7 +117,6 @@ function createForm() {
     // Form content
     form.append(createEntry("title", "text", true));
     form.append(createEntry("description", "textarea", false));
-    // TO ADD: Due Date
 
     // High-priority feature
     // Checkbox
@@ -141,6 +141,7 @@ function createForm() {
     dateInput.setAttribute('type', 'date');
     dateInput.setAttribute('id', 'due-date');
     dateInput.setAttribute('name', 'dueDate');
+    dateInput.setAttribute('required', true);
     dateContainer.append(dateInput);
 
     form.append(dateContainer);
@@ -176,6 +177,7 @@ function createForm() {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         createProject();
+        updateSidebarList();
         clearForm();
 
         displayAll();
@@ -210,7 +212,6 @@ function createItem(content, isChecked) {
     delBtn.addEventListener('click', () => {
         item.remove();
     });
-
     
     return item;
 }
