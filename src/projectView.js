@@ -10,6 +10,7 @@ function projectView(project) {
     // Back button
     const backBtn = document.createElement('button');
     backBtn.setAttribute('type', 'button');
+    backBtn.setAttribute('class', 'back-btn');
     backBtn.textContent = 'Back';
     projCol.append(backBtn);
     backBtn.addEventListener('click', () => {
@@ -20,7 +21,7 @@ function projectView(project) {
     // Delete project button
     const delProj = document.createElement('button');
     delProj.setAttribute('type', 'button');
-    delProj.textContent = 'X';
+    delProj.textContent = 'Delete Project';
     projCol.append(delProj);
     delProj.addEventListener('click', () => {
         const index = allProjects.indexOf(project);
@@ -134,10 +135,10 @@ function projectView(project) {
 
     // Due date
     const dateContainer = document.createElement('div');
-    // label
+    // Label
     const dateLabel = document.createElement('span');
     dateLabel.textContent = 'Due Date: ';
-    // input
+    // Input
     const dueDate = project.getDueDate();
     dateContainer.append(dateLabel, dueDate);
     projCol.append(dateContainer);
@@ -146,7 +147,7 @@ function projectView(project) {
     const list = document.createElement('ul');
     // Create and display add-task button
     const addTasksBtn = document.createElement("button");
-    addTasksBtn.setAttribute('id', 'add-tasks-btn')
+    addTasksBtn.setAttribute('class', 'add-tasks-btn')
     addTasksBtn.textContent = 'Add Task'
     projCol.append(addTasksBtn);
     addTasksBtn.addEventListener("click", () => {

@@ -94,7 +94,6 @@ function createProject() {
     });
 
     allProjects.push(newProj);
-
 }
 
 function createForm() {
@@ -103,7 +102,8 @@ function createForm() {
     // Back button
     const backBtn = document.createElement('button');
     backBtn.setAttribute('type', 'button');
-    backBtn.textContent = 'Back';
+    backBtn.setAttribute('class', 'back-btn');
+    backBtn.textContent = '< Back';
     projCol.append(backBtn);
     backBtn.addEventListener('click', () => {
         clearForm();
@@ -133,8 +133,8 @@ function createForm() {
     const dateContainer = document.createElement('div');
     // Label
     const dateLabel = document.createElement('label');
-    dateLabel.setAttribute('for', 'dueDate');
-    dateLabel.textContent = 'Due Date:';
+    dateLabel.setAttribute('for', 'due-date');
+    dateLabel.textContent = 'Due Date: ';
     dateContainer.append(dateLabel);
     // Input
     const dateInput = document.createElement('input');
@@ -147,14 +147,21 @@ function createForm() {
     form.append(dateContainer);
 
     // Tasks
+    const taskHeader = document.createElement('label');
+    taskHeader.setAttribute('for', 'tasks');
+    taskHeader.textContent = 'Tasks';
+    form.append(taskHeader);
+
     const list = document.createElement('ul');
     list.append(createItem("", false));
     list.append(createItem("", false));
     list.append(createItem("", false));
 
     // Add-tasks button
+    const linebreak = document.createElement('br');
+    form.append(linebreak);
     const addTasksBtn = document.createElement("button");
-    addTasksBtn.setAttribute('id', 'add-tasks-btn');
+    addTasksBtn.setAttribute('class', 'add-tasks-btn');
     addTasksBtn.setAttribute('type', 'button');
     addTasksBtn.textContent = 'Add Task';
     form.append(addTasksBtn);
@@ -166,6 +173,7 @@ function createForm() {
 
     // Submit button
     const submit = document.createElement("button");
+    submit.setAttribute('class', 'submit-btn')
     submit.type = "submit"
     submit.textContent = "Submit";
     form.append(submit);
