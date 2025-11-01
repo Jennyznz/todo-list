@@ -93,7 +93,10 @@ function createProject() {
         }
     });
 
+    // Store new project
     allProjects.push(newProj);
+    // Update localStorage every time a new project is created
+    localStorage.setItem('projects', JSON.stringify(allProjects));
 }
 
 function createForm() {
@@ -126,7 +129,7 @@ function createForm() {
     form.append(input);
     // Label
     const input2 = document.createElement('span');
-    input2.textContent = "High Priority";
+    input2.textContent = " High Priority";
     form.append(input2);
 
     // Due Date
@@ -147,27 +150,31 @@ function createForm() {
     form.append(dateContainer);
 
     // Tasks
+    // Add-tasks button
+    const addTaskContainer = document.createElement('div');
+    addTaskContainer.setAttribute('class', 'add-task-container');
+    const addTasksBtn = document.createElement("button");
+    addTasksBtn.setAttribute('class', 'add-tasks-btn');
+    addTasksBtn.setAttribute('type', 'button');
+    addTasksBtn.textContent = 'Add Task';
+
+    addTaskContainer.append(addTasksBtn);
+    form.append(addTaskContainer);
+    addTasksBtn.addEventListener("click", () => {
+        list.append(createItem('', false));
+    });     
+
+    // Header
     const taskHeader = document.createElement('label');
     taskHeader.setAttribute('for', 'tasks');
     taskHeader.textContent = 'Tasks';
     form.append(taskHeader);
 
+    // List of task
     const list = document.createElement('ul');
     list.append(createItem("", false));
     list.append(createItem("", false));
     list.append(createItem("", false));
-
-    // Add-tasks button
-    const linebreak = document.createElement('br');
-    form.append(linebreak);
-    const addTasksBtn = document.createElement("button");
-    addTasksBtn.setAttribute('class', 'add-tasks-btn');
-    addTasksBtn.setAttribute('type', 'button');
-    addTasksBtn.textContent = 'Add Task';
-    form.append(addTasksBtn);
-    addTasksBtn.addEventListener("click", () => {
-        list.append(createItem('', false));
-    });
 
     form.append(list);
 
@@ -187,7 +194,6 @@ function createForm() {
         createProject();
         updateSidebarList();
         clearForm();
-
         displayAll();
     });
 }
@@ -266,4 +272,4 @@ function clearForm() {
     projCol.textContent = "";
 }
 
-export { createForm, allProjects, clearForm, createItem }; 
+export { createForm, allProjects, clearForm, createItem, Project, Task }; 

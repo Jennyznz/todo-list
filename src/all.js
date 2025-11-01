@@ -18,7 +18,7 @@ function displayProject(project) {
     const projCol = document.getElementById("projects");
     
     // Create a container for the project
-    const section = document.createElement("div");
+    const section = document.createElement("div");      
     section.setAttribute('class', 'project-section');
 
     // Create project title element

@@ -1,3 +1,4 @@
+
 .content {
     display: grid;
     grid-template-columns: 1fr 3fr;
@@ -8,11 +9,11 @@
 }
 
 .section {
-    height: 80vh;
+    height: 70vh;
     border-radius: 30px;
     background-color: antiquewhite;
     margin: 10px;
-    padding: 50px 50px;
+    padding: 70px 70px;
 }
 
 #add-btn {
@@ -23,16 +24,23 @@
 }
 
 .back-btn {
-    margin-bottom: 20px;
-    background: none;
+    margin-bottom: 40px;
 }
 
-form div {
+.submit-btn {
+    margin-top: 40px;
+}
+ 
+.due-date, form div{
     margin-bottom: 20px;
 }
 
-form [name="priority"] {
+.priority-container, form [name="priority"] {
     margin-bottom: 10px;
+}
+
+.priority-container {
+    margin-top: 20px;
 }
 
 input[type='text'] {
@@ -53,11 +61,12 @@ input[type='text'] {
     flex: 1;
 }
 
-.submit-btn, .add-tasks-btn, .del-btn {
+.submit-btn, .back-btn {
     background: none;
 }
 
-.add-tasks-btn, .del-btn {
+.add-tasks-btn, .del-btn, .edit-title-btn, .edit-des-btn {
+    background: none;
     border: none;
 }
 
@@ -78,4 +87,44 @@ ul {
 
 li {
     width: 100%;
+}
+
+.add-btn-container {
+    margin-bottom: 20px;
+}
+
+#all-projects {
+    font-weight: bold;
+}
+
+#changing-the-title {
+    margin: 20px;
+}
+
+#changing-the-des {
+    margin: 10px;
+}
+
+.bd-container {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.edit-title-btn, .edit-des-btn, .add-tasks-btn {
+    align-self: end;
+}
+
+.td-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-task-container {
+    display: flex;
+    justify-content: end;
+}
+
+.del-btn {
+    color: red;
 }

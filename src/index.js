@@ -1,6 +1,35 @@
 import "./styles.css";
-import { createForm, clearForm, allProjects } from "./projectForm.js";
+import { createForm, clearForm, allProjects, Project, Task } from "./projectForm.js";
 import { displayAll } from "./all.js";
+import { projectView } from "./projectView.js"; 
+
+function loadProjects() {
+    const storedProjects = localStorage.getItem('projects');
+    if (storedProjects) {
+        const parsedP = JSON.parse(storedProjects);
+        parsedP.forEach(projData => {
+            // Extract project properties
+            const project = new Project(
+                projData.title,
+                projData.description,
+                projData.isPriority,
+                projData.dueDate
+            );
+
+            // Extract all tasks
+            projData.tasks.forEach(taskData => {
+                const task = new Task(
+                    taskData.content,
+                    taskData.isComplete
+                )
+                project.createTask(task);
+            });
+
+            allProjects.push(project);
+        });
+    }
+}
+loadProjects();
 
 // Add new project
 const addBtn = document.querySelector('#add-btn');
@@ -19,6 +48,8 @@ all.addEventListener("click", () => {
     displayAll();
 });
 
+updateSidebarList();
+
 // Called every time a project is added
 function updateSidebarList() {
     const projTitleList = document.getElementById("proj-title-list");
@@ -31,7 +62,10 @@ function updateSidebarList() {
         item.append(title);
 
         projTitleList.append(item);
-
+        item.addEventListener('click', () => {
+            clearForm();
+            projectView(proj);
+        });
     });
 }
 

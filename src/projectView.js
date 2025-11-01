@@ -7,12 +7,14 @@ function projectView(project) {
 
     const projCol = document.getElementById('projects');
 
+    const bdContainer = document.createElement('div');
+    bdContainer.setAttribute('class', 'bd-container');
+
     // Back button
     const backBtn = document.createElement('button');
     backBtn.setAttribute('type', 'button');
     backBtn.setAttribute('class', 'back-btn');
     backBtn.textContent = 'Back';
-    projCol.append(backBtn);
     backBtn.addEventListener('click', () => {
         clearForm();
         displayAll();
@@ -21,31 +23,41 @@ function projectView(project) {
     // Delete project button
     const delProj = document.createElement('button');
     delProj.setAttribute('type', 'button');
+    delProj.setAttribute('class', 'del-btn');
     delProj.textContent = 'Delete Project';
-    projCol.append(delProj);
     delProj.addEventListener('click', () => {
         const index = allProjects.indexOf(project);
         if (index !== -1) {
             allProjects.splice(index, 1); // .splice() removes 1 element starting from 'index'
+            // Remove from localStorage
+            localStorage.removeItem(project.getTitle());
+
             // Redirects to list of all projects, if current project is deleted
             clearForm();
             updateSidebarList();
             displayAll();
         }
     });
+    bdContainer.append(backBtn, delProj);
+    projCol.append(bdContainer);
 
-
+    const tdContainer = document.createElement('div');
+    tdContainer.setAttribute('class', 'td-container');
     // Project Title
     // Edit title button
+    const linebreak = document.createElement('br');
+    tdContainer.append(linebreak);
     const editTitleBtn = document.createElement('button');
     editTitleBtn.textContent = 'Edit Title';
     editTitleBtn.setAttribute('type', 'button');
-    projCol.append(editTitleBtn);
+    editTitleBtn.setAttribute('class', 'edit-title-btn');
+    tdContainer.append(editTitleBtn);
 
     // Display title
-    const header = document.createElement("h1");
+    const header = document.createElement("h2");
+    header.setAttribute('class', 'title-display');
     header.textContent = project.title;
-    projCol.append(header);
+    tdContainer.append(header);
 
     // Edit title
     editTitleBtn.addEventListener('click', () => {
@@ -74,7 +86,6 @@ function projectView(project) {
             }
         });
 
-       // project.setTitle(header.textContent);
     });
 
 
@@ -83,21 +94,21 @@ function projectView(project) {
     const editDesBtn = document.createElement('button');
     editDesBtn.textContent = 'Edit Description';
     editDesBtn.setAttribute('type', 'button');
-    projCol.append(editDesBtn);
+    editDesBtn.setAttribute('class', 'edit-des-btn');
+    tdContainer.append(editDesBtn);
 
     // Display description
     const description = document.createElement("p");
     description.setAttribute("class", "description");
     description.textContent = project.description;
-    projCol.append(description);
+    tdContainer.append(description);
 
     // Edit description
     editDesBtn.addEventListener('click', () => {
-        // Create a text input pre-filled with current title 
-        const input = document.createElement('input');
-        input.setAttribute('type', 'text');
+        // Create a textarea input pre-filled with current title 
+        const input = document.createElement('textarea');
         input.setAttribute('id', 'changing-the-des');
-        input.setAttribute('value', project.getDescription());
+        input.value = project.getDescription();
 
         description.replaceWith(input);
         input.focus(); // Place cursor inside text field
@@ -118,30 +129,34 @@ function projectView(project) {
 
     });
 
+
     // High-priority feature
+    const hpContainer = document.createElement('div');
+    hpContainer.setAttribute('class', 'priority-container');
     // Checkbox
     const input = document.createElement('input');
     input.setAttribute('name', 'priority');
     input.setAttribute('type', 'checkbox');
     input.checked = project.getIsPriority();
-    projCol.append(input);
+    // Label
+    const input2 = document.createElement('span');
+    input2.textContent = " High Priority";
+    hpContainer.append(input, input2);
+    tdContainer.append(hpContainer);
     input.addEventListener('change', () => {
         project.setIsPriority(!project.getIsPriority());
     });
-    // Label
-    const input2 = document.createElement('span');
-    input2.textContent = "High Priority";
-    projCol.append(input2);
 
     // Due date
     const dateContainer = document.createElement('div');
+    dateContainer.setAttribute('class', 'due-date')
     // Label
     const dateLabel = document.createElement('span');
     dateLabel.textContent = 'Due Date: ';
     // Input
     const dueDate = project.getDueDate();
     dateContainer.append(dateLabel, dueDate);
-    projCol.append(dateContainer);
+    tdContainer.append(dateContainer);
 
 
     const list = document.createElement('ul');
@@ -149,16 +164,18 @@ function projectView(project) {
     const addTasksBtn = document.createElement("button");
     addTasksBtn.setAttribute('class', 'add-tasks-btn')
     addTasksBtn.textContent = 'Add Task'
-    projCol.append(addTasksBtn);
+    tdContainer.append(addTasksBtn);
     addTasksBtn.addEventListener("click", () => {
         // Create blank and unchecked task
         list.append(createItem('', false));
         project.createTask('', false);
         updateTasks(project);
     });
+        
+    projCol.append(tdContainer);
     
     // Display project tasks
-    const taskHeader = document.createElement('h3');
+    const taskHeader = document.createElement('div');
     taskHeader.textContent = 'Tasks';
     projCol.append(taskHeader);
     project.tasks.forEach(task => {
