@@ -9,8 +9,10 @@
 - Bundled and optimized assets using Webpack.
 
 ## Local Setup:
+```bash
 git clone https://github.com/Jennyznz/todo-list.git
 cd todo-list
 npm install
 npm run build
+```
 
